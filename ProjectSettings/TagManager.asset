@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - enemy
+  - breakable
+  - Player_hit
+  - ground
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Player
+  - enemy
+  - Interactable
+  - Ground
+  - Decoration - Overlap player
+  - breakable
+  - Player Projectile
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 1318746903
+    locked: 0
+  - name: enemy
+    uniqueID: 82574217
+    locked: 0
+  - name: Interactables
+    uniqueID: 4032473533
+    locked: 0
+  - name: breakable
+    uniqueID: 3261890959
+    locked: 0
+  - name: Player
+    uniqueID: 933784151
+    locked: 0
+  - name: Decoration - Overlap Player
+    uniqueID: 3957875953
+    locked: 0
