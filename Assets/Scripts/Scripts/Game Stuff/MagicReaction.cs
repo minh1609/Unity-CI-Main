@@ -13,6 +13,7 @@ public class MagicReaction : MonoBehaviour
     {
         if (greenPotion.numberHeld > 0)
         {
+            FindObjectOfType<AudioManager>().Play("potion");
             playerInventory.currentMagic += amountToIncrease;
             if (playerInventory.currentMagic > playerInventory.maxMagic)
                 playerInventory.currentMagic = playerInventory.maxMagic;

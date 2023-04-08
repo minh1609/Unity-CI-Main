@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -9,11 +8,13 @@ public class PauseManager : MonoBehaviour
     public GameObject pausePanel;
     public GameObject text;
     public string mainMenu;
+    [SerializeField] private GameObject resumeButton;
 
     // Start is called before the first frame update
     void Start()
     {
         isPaused = false;
+        text = GameObject.FindGameObjectWithTag("Player UI").transform.Find("PlaceText").gameObject;
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class PauseManager : MonoBehaviour
 
     public void ChangePause()
     {
+        FindObjectOfType<AudioManager>().Play("ButtonPress");
         isPaused = !isPaused;
         if (isPaused)
         {
@@ -36,6 +38,7 @@ public class PauseManager : MonoBehaviour
                 text.SetActive(false);
             pausePanel.SetActive(true);
             Time.timeScale = 0f;
+            EventSystem.current.SetSelectedGameObject(resumeButton);
         }
 
         else
@@ -47,6 +50,7 @@ public class PauseManager : MonoBehaviour
 
     public void QuitToMain()
     {
+        FindObjectOfType<AudioManager>().Play("ButtonPress");
         SceneManager.LoadScene(mainMenu);
         Time.timeScale = 1f;
     }

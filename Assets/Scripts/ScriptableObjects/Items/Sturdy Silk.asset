@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40841141257a6b146a41e952cf046e80, type: 3}
+  m_Name: Sturdy Silk
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 21300000, guid: 8a8898c073c8ba346b88e7a8999d6e0d, type: 3}
+  itemDescription: Silk coiled into a rope. It seems like it could hold a lot of
+    tension without breaking.
+  isKey: 0
+  isCoin: 0
+  itemName: Sturdy Silk
+  numberHeld: 0
+  usable: 0
+  combineable: 1
+  unique: 0
+  thisEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  combineList:
+  - {fileID: 11400000, guid: fa6dad37efd0a2744b8940dcbfb57c6a, type: 2}
+  combineProduct:
+  - {fileID: 11400000, guid: ba35c207a694e4340872d3aa02cc81ab, type: 2}

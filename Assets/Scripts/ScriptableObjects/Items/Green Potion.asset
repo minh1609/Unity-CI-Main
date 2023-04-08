@@ -16,9 +16,9 @@ MonoBehaviour:
   itemDescription: You feel ancient power from within this bottle. <br><br> Replenishes
     Magic
   isKey: 0
-  playerInventory: {fileID: 11400000, guid: 399fd68b10eb1ea4c8dded36df1cf99a, type: 2}
+  isCoin: 0
   itemName: Green Potion
-  numberHeld: 10
+  numberHeld: 8
   usable: 1
   combineable: 1
   unique: 0

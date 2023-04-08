@@ -5,10 +5,10 @@ using UnityEngine;
 public class DaggerParry : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        FindObjectOfType<AudioManager>().Play("dagger");
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,6 +20,10 @@ public class DaggerParry : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("Dagger");
+        PlayerController player = animator.GetComponent<PlayerController>();
+        if (player.currentState != PlayerState.stagger && player.currentState != PlayerState.interact && player.currentState != PlayerState.attack)
+            player.currentState = PlayerState.idle;
+        player.invul_time = 0;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

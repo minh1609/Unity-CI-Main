@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6415656150595606118}
   - component: {fileID: 6415656150595606113}
   - component: {fileID: 6415656150595606112}
+  - component: {fileID: -759773726201840429}
   m_Layer: 8
   m_Name: Sign
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -262493763
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 4479181887894498110, guid: ae5e0ea4b7a7e0f43891ddfed53af653, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -175,6 +176,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInRange: 0
   contextClue: {fileID: 11400000, guid: d1b2af643f223e043bb5a22cd5874132, type: 2}
+  dialogueSets: []
+  dialogueBox: {fileID: 0}
+--- !u!114 &-759773726201840429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415656150595606114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c3d8b99c9d1ba40b3d4c6891ac83ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   dialogueBox: {fileID: 0}
   dialogueText: {fileID: 0}
-  dialogue: Welcome to Auburn village - Safe travels
+  nameText: {fileID: 0}
+  CharacterName: Sign
+  index: 0
+  endOfDialogue: 0
+  dialogue:
+    sentences: []

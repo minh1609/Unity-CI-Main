@@ -29,6 +29,5 @@ public class ForegroundClouds : MonoBehaviour
             startpos.x -= transform.position.x * 2;
             timePassed = 0;
         }
-        Debug.Log(dist);
     }
 }

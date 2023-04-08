@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8775311440394962706}
   - component: {fileID: 2824155591882830814}
   - component: {fileID: 338153925553163239}
+  - component: {fileID: -7194810950381247713}
   - component: {fileID: 597114949041350453}
   - component: {fileID: 7348150049781755874}
   m_Layer: 16
@@ -125,6 +126,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-7194810950381247713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3511587191260013932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c963ab60284a1124a84d4d742630decb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  otherTag:
+  - Player
 --- !u!114 &597114949041350453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thrust: 1
   knockTime: 1
-  damage: 1
 --- !u!114 &7348150049781755874
 MonoBehaviour:
   m_ObjectHideFlags: 0

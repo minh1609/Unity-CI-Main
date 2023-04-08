@@ -10,6 +10,9 @@ TagManager:
   - ground
   - enemy projectile
   - eprojectile
+  - Dialogue
+  - Player UI
+  - place text
   layers:
   - Default
   - TransparentFX

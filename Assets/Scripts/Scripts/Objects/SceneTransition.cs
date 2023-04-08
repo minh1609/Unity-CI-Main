@@ -7,6 +7,8 @@ public class SceneTransition : MonoBehaviour
 {
     [Header("New Scene Variables")]
     public string sceneToLoad;
+    public StringValue lastScene;
+    public StringValue currentScene;
 
     [Header("Reset Camera min/max values")]
     public CameraReset cameraReset;
@@ -32,9 +34,12 @@ public class SceneTransition : MonoBehaviour
     {
         if(other.CompareTag("Player") && !other.isTrigger)
         {
+            FindObjectOfType<AudioManager>().Stop(currentScene.element + " Theme");
             StartCoroutine(FadeCo());
             if (changeCamera)
                 setCamera();
+            lastScene.element = this.gameObject.scene.name;
+            currentScene.element = sceneToLoad;
             SceneManager.LoadScene(sceneToLoad);
         }
     }

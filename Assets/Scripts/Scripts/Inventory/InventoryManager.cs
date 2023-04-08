@@ -45,11 +45,13 @@ public class InventoryManager : MonoBehaviour
 
     public void toggleInventory()
     {
+        FindObjectOfType<AudioManager>().Play("ButtonPress");
         clearCombine();
         clearText();
         inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         foreach (Transform children in inventoryScrollView.transform)
             GameObject.Destroy(children.gameObject);
+        clearEmpty();
         MakeInventorySlot();
         exit.Select();
     }
@@ -98,6 +100,17 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    private void clearEmpty()
+    {
+        for (int i = 0; i < playerInventory.items.Count; i++)
+        {
+            if (playerInventory.items[i].numberHeld <= 0)
+            {
+                playerInventory.items.Remove(playerInventory.items[i]);
+            }
+        }
+    }
+
     public void MakeCombinedItem(Item combinedItem)
     {
         if (playerInventory != null)
@@ -139,7 +152,10 @@ public class InventoryManager : MonoBehaviour
     public void pageUp()
     {
         if (page + maxItemsDisplayed <= playerInventory.items.Count)
+        {
             page++;
+            FindObjectOfType<AudioManager>().Play("ButtonPress");
+        }
         foreach (Transform children in inventoryScrollView.transform)
             GameObject.Destroy(children.gameObject);
             MakeInventorySlot();
@@ -152,9 +168,12 @@ public class InventoryManager : MonoBehaviour
     public void pageDown()
     {
         if (page > 1)
+        {
             page--;
+            FindObjectOfType<AudioManager>().Play("ButtonPress");
+        }
         foreach (Transform children in inventoryScrollView.transform)
-            GameObject.Destroy(children.gameObject);
+        GameObject.Destroy(children.gameObject);
         MakeInventorySlot();
 
         if (page > 1)
@@ -190,6 +209,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (currentItem != null)
         {
+            FindObjectOfType<AudioManager>().Play("ButtonPress");
             currentItem.Use();
             setSlots();
         }
@@ -200,6 +220,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (tempItem == null)
         {
+            FindObjectOfType<AudioManager>().Play("ButtonPress");
             combineButton.image.sprite = combineToggle;
             tempItem = currentItem;
         }

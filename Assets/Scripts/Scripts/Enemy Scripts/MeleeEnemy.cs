@@ -10,6 +10,7 @@ public class MeleeEnemy : Enemy
     public float attackRadius;
     public Animator animator;
     private Vector2 positionDif;
+    private float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,9 @@ public class MeleeEnemy : Enemy
 
     public void CheckDistance()
     {
-        if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)
+
+        distance = Vector3.Distance(target.position, transform.position);
+        if (distance <= chaseRadius && distance > attackRadius)
         {
             if (currentState == EnemyState.idle || currentState == EnemyState.walk && currentState != EnemyState.stagger)
             {
@@ -44,12 +47,15 @@ public class MeleeEnemy : Enemy
                 animator.SetFloat("lastMoveY", myRigidbody.velocity.y);
             }
         }
-        else if (Vector3.Distance(target.position, transform.position) <= attackRadius && Vector3.Distance(target.position, transform.position) <= chaseRadius)
+        else if (distance <= attackRadius && distance <= chaseRadius)
         {
-            StartCoroutine(AttackCo());
+            if (currentState != EnemyState.attack)
+            {
+                StartCoroutine(AttackCo());
+            }
         }
 
-        else if (Vector3.Distance(target.position, transform.position) > chaseRadius)
+        else if (distance > chaseRadius)
         {
             animator.SetBool("walking", false);
             ChangeState(EnemyState.idle);
@@ -87,6 +93,7 @@ public class MeleeEnemy : Enemy
     {
         ChangeState(EnemyState.stagger);
         animator.SetBool("stagger", true);
+        StaggerColor();
         yield return new WaitForSeconds(duration);
         animator.SetBool("stagger", false);
         ChangeState(EnemyState.idle);

@@ -5,23 +5,24 @@ using UnityEngine;
 public class KnockBack : MonoBehaviour
 {
 
-    public float thrust;
-    public float knockTime;
-    public float damage;
-    string thisTag;
+    [SerializeField] private float thrust;
+    [SerializeField] private float knockTime;
+
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.isTrigger)
         {
-            Rigidbody2D hit = other.GetComponent<Rigidbody2D>();
+            Rigidbody2D hit = other.GetComponentInParent<Rigidbody2D>();
+            PlayerController player = other.GetComponentInParent<PlayerController>();
             if (hit != null)
             {
-                if (other.GetComponent<PlayerController>().currentState != PlayerState.stagger && !other.GetComponent<PlayerController>().invulnerable && other.GetComponent<PlayerController>().currentState != PlayerState.parry)
+                if (player.currentState != PlayerState.stagger && !player.invulnerable && player.currentState != PlayerState.parry)
                 {
+                    player.currentState = PlayerState.stagger;
+                    player.Knock(knockTime);
                     CreateThrust(hit);
-                    hit.GetComponent<PlayerController>().currentState = PlayerState.stagger;
-                    other.GetComponent<PlayerController>().Knock(knockTime, damage);
+                    player.enterInvulnerable();
                 }
                 
             }
@@ -35,24 +36,27 @@ public class KnockBack : MonoBehaviour
             other.GetComponent<Pot>().Smash();
         }
 
-        if (other.gameObject.CompareTag("enemy") || other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("enemy") || other.gameObject.CompareTag("Player") && other.isTrigger)
         {
-            Rigidbody2D hit = other.GetComponent<Rigidbody2D>();
+            Rigidbody2D hit = other.GetComponentInParent<Rigidbody2D>();
             if(hit != null)
-           {               
-                if (other.gameObject.CompareTag("enemy") && other.isTrigger)
+           {
+                if (other.gameObject.CompareTag("enemy"))
                 {
+                    Enemy enemy = other.GetComponentInParent<Enemy>();
                     CreateThrust(hit);
-                    hit.GetComponent<Enemy>().currentState = EnemyState.stagger;
-                    other.GetComponent<Enemy>().Knock(hit, knockTime, damage);
+                    enemy.currentState = EnemyState.stagger;
+                    enemy.Knock(hit, knockTime);
                 }
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    if (other.GetComponent<PlayerController>().currentState != PlayerState.stagger && !other.GetComponent<PlayerController>().invulnerable && other.GetComponent<PlayerController>().currentState != PlayerState.parry)
+                    PlayerController player = other.GetComponentInParent<PlayerController>();
+                    if (player.currentState != PlayerState.stagger && !player.invulnerable && player.currentState != PlayerState.parry)
                     {
+                        player.currentState = PlayerState.stagger;
+                        player.Knock(knockTime);
                         CreateThrust(hit);
-                        hit.GetComponent<PlayerController>().currentState = PlayerState.stagger;
-                        other.GetComponent<PlayerController>().Knock(knockTime, damage);
+                        player.enterInvulnerable();
                     }
                 }
             }
@@ -66,5 +70,7 @@ public class KnockBack : MonoBehaviour
         difference = difference.normalized * thrust;
         hit.AddForce(difference, ForceMode2D.Impulse);
     }
+
+
 
 }

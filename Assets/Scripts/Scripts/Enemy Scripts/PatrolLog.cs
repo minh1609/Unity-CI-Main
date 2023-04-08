@@ -12,7 +12,7 @@ public class PatrolLog : Log
     public override void OnEnable()
     {
         transform.position = homePosition;
-        health = maxHealth.initialValue;
+        //health = maxHealth.initialValue;
         currentState = EnemyState.walk;
         animator = GetComponent<Animator>();
         animator.SetBool("wakeUp", true);

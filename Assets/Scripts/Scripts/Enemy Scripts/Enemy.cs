@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyState
@@ -13,11 +12,12 @@ public class Enemy : MonoBehaviour
     public EnemyState currentState;
 
     [Header("Enemy Stats")]
-    public FloatValue maxHealth;
-    protected float health;
+    //public FloatValue maxHealth;
+    //protected float health;
     public string enemyName;
     public float moveSpeed;
     public Vector2 homePosition;
+    [SerializeField] private  bool spawnAtTransform = true;
 
     [Header("On Death")]
     public GameObject deathEffect;
@@ -29,32 +29,39 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        health = maxHealth.initialValue;
+        //health = maxHealth.initialValue;
     }
 
     public virtual void OnEnable()
     {
+        Vector2 temp = transform.position;
+
         transform.position = homePosition;
-        health = maxHealth.initialValue;
+        //health = maxHealth.initialValue;
         currentState = EnemyState.idle;
-    }
 
-    private void TakeDamage(float damage)
-    {
-        health -= damage;
-        if (health <= 0)
+        if (spawnAtTransform)
         {
-            DeathEffect();
-            MakeLoot();
-            if (roomSignal != null)
-                roomSignal.Raise();
-            this.gameObject.SetActive(false);
+            transform.position = temp;
         }
-        else
-            StaggerColor();
     }
 
-    private void MakeLoot()
+    //private void TakeDamage(float damage)
+    //{
+    //    health -= damage;
+    //    if (health <= 0)
+    //    {
+    //        DeathEffect();
+    //        MakeLoot();
+    //        if (roomSignal != null)
+    //            roomSignal.Raise();
+    //        this.gameObject.SetActive(false);
+    //    }
+    //    else
+    //        StaggerColor();
+    //}
+
+    public void MakeLoot()
     {
         if (thisLoot != null)
         {
@@ -66,7 +73,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void DeathEffect()
+    public void DeathEffect()
     {
         if(deathEffect != null)
         {
@@ -75,20 +82,34 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Knock(Rigidbody2D myRigidbody, float knockTime, float damage)
+    public virtual void Knock(Rigidbody2D myRigidbody, float knockTime)
     {
         StartCoroutine(KnockCo(myRigidbody, knockTime));
-        TakeDamage(damage);
+        //TakeDamage(damage);
     }
 
     private IEnumerator KnockCo(Rigidbody2D myRigidbody, float knockTime)
     {
         if (myRigidbody != null)
         {
+            FindObjectOfType<AudioManager>().Play("damage" + Random.Range(1, 3));
             yield return new WaitForSeconds(knockTime);
             myRigidbody.velocity = Vector2.zero;
             currentState = EnemyState.idle;
         }
+    }
+
+    public void removeCollider(Collider2D collider, float duration)
+    {
+        StartCoroutine(removeColliderCo(collider, duration));
+    }
+
+    private IEnumerator removeColliderCo(Collider2D collider, float duration)
+    {
+        collider.enabled = false;
+        yield return new WaitForSeconds(duration);
+        collider.enabled = true;
+        yield return null;
     }
 
     public void ChangeState(EnemyState newState)
@@ -97,7 +118,7 @@ public class Enemy : MonoBehaviour
             currentState = newState;
     }
 
-    private void StaggerColor()
+    public void StaggerColor()
     {
         StartCoroutine(StaggerColorCo());
     }

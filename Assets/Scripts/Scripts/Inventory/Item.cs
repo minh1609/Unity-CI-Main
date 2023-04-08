@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class Item : ScriptableObject
 {
     public Sprite itemSprite;
-
+    [TextArea(4, 10)]
     public string itemDescription;
     public bool isKey;
     public bool isCoin;

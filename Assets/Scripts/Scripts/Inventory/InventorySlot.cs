@@ -33,6 +33,7 @@ public class InventorySlot : MonoBehaviour
 
     public void ClickedOn()
     {
+        FindObjectOfType<AudioManager>().Play("ButtonPress");
         if (thisItem != null && thisManager.tempItem == null)
         {
             thisManager.SetupDescriptionAndButton(thisItem.itemDescription, thisItem.itemName, thisItem.usable, thisItem.combineable, thisItem);
@@ -48,11 +49,16 @@ public class InventorySlot : MonoBehaviour
                     thisManager.tempItem.numberHeld--;
                     Item comboItem = (Item)thisItem.combinations[thisManager.tempItem];
                     if (!thisManager.playerInventory.items.Contains(comboItem))
+                    {
                         thisManager.MakeCombinedItem(comboItem);
+                    }
                     else
+                    {
                         thisManager.searchForItem(comboItem);
+                    }
                     thisManager.SetupDescriptionAndButton(comboItem.itemDescription, comboItem.itemName, comboItem.usable, comboItem.combineable, comboItem);
                     thisManager.playerInventory.AddItem(comboItem, 1);
+                    FindObjectOfType<AudioManager>().Play("combined");
 
                     if (thisItem.numberHeld <= 0)
                     {

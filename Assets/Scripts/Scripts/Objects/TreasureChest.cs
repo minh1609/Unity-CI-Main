@@ -25,6 +25,11 @@ public class TreasureChest : InteractableOnce
 
     void Start()
     {
+        dialogueBox = GameObject.FindGameObjectWithTag("Player UI").transform.Find("Dialogue Box").gameObject;
+        if (dialogueBox != null)
+        {
+            dialogueText = dialogueBox.transform.Find("Dialogue Text").GetComponent<Text>();
+        }
         animator = GetComponent<Animator>();
         triggered = storedOpen.RunTimeValue;
         if (triggered)
@@ -48,6 +53,7 @@ public class TreasureChest : InteractableOnce
 
     public void OpenChest()
     {
+        FindObjectOfType<AudioManager>().Play("chest-opening");
         dialogueBox.SetActive(true);
         dialogueText.text = description;
         playerInventory.currentItem = contents;

@@ -10,6 +10,7 @@ public class RangedLog : Log
     public bool fire = true;
     public Timer timer;
     public float projectileSpeed;
+    private Rigidbody2D rb;
 
     public override void OnEnable()
     {
@@ -17,12 +18,15 @@ public class RangedLog : Log
         timer.timer = 0f;
         fire = true;
         transform.position = homePosition;
-        health = maxHealth.initialValue;
+        //health = maxHealth.initialValue;
         currentState = EnemyState.idle;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     public override void CheckDistance()
     {
+        if (rb.velocity != Vector2.zero)
+            rb.velocity = Vector2.zero;
         if (timer.activateTrigger)
             fire = true;
         if (Vector3.Distance(target.position, transform.position) <= chaseRadius && Vector3.Distance(target.position, transform.position) > attackRadius)

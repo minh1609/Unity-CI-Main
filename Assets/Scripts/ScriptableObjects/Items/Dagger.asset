@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Dagger
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: 2656e07369526c34e98c3004e64aab93, type: 3}
-  itemDescription: 
+  itemDescription: "This dagger is much stronger than it looks. You feel quick and
+    \r\nmaneuverable when you wield it.\n\nPress V to Parry\nPress V after attacking
+    to combo"
   isKey: 0
   isCoin: 0
   itemName: Dagger

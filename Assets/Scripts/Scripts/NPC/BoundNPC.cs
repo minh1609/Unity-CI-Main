@@ -33,14 +33,20 @@ public class BoundNPC : Sign
     public override void Update()
     {
         base.Update();
+    }
+
+    public void FixedUpdate()
+    {
         if (isMoving)
         {
             moveTimeSeconds -= Time.deltaTime;
             if (moveTimeSeconds <= 0)
             {
+                anim.SetFloat("lastMoveX", moveDirection.x);
+                anim.SetFloat("lastMoveY", moveDirection.y);
                 moveTimeSeconds = Random.Range(minMoveTime, maxMoveTime);
                 isMoving = false;
-                ChooseDifferentDirection();
+
             }
             if (!playerInRange)
                 Move();
@@ -55,6 +61,7 @@ public class BoundNPC : Sign
             {
                 isMoving = true;
                 WaitTimeSeconds = Random.Range(minWaitTime, maxWaitTime);
+                ChangeDirection();
             }
         }
     }
@@ -76,7 +83,9 @@ public class BoundNPC : Sign
         anim.SetBool("moving", true);
         Vector3 temp = myTransform.position + moveDirection * speed * Time.deltaTime;
         if (bounds.bounds.Contains(temp))
-            myRB.MovePosition(myTransform.position + moveDirection * speed * Time.deltaTime);
+        {
+            myRB.MovePosition(myTransform.position + moveDirection * speed * Time.deltaTime);           
+        }
         else
             ChangeDirection();
     }
@@ -105,6 +114,31 @@ public class BoundNPC : Sign
                 break;
         }
         UpdateAnimation();
+    }
+
+    void ChangeDirectionNoAnim()
+    {
+        int direction = Random.Range(0, 4);
+        switch (direction)
+        {
+            case 0:
+                moveDirection = Vector3.right;
+                break;
+
+            case 1:
+                moveDirection = Vector3.left;
+                break;
+
+            case 2:
+                moveDirection = Vector3.up;
+                break;
+
+            case 3:
+                moveDirection = Vector3.down;
+                break;
+            default:
+                break;
+        }
     }
 
     void UpdateAnimation()

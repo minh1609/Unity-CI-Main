@@ -1,27 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
+	[SerializeField] private string[] otherTag;
+	[SerializeField] private float damage;
 
-	// Use this for initialization
-	void Start()
-	{
-
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
-
-	private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
 	{
 		if (other.CompareTag("breakable"))
 		{
 			other.GetComponent<Pot>().Smash();
 		}
-	}
+
+        foreach (string tag in otherTag)
+        {
+            if (other.gameObject.CompareTag(tag) && other.isTrigger)
+            {
+                GenericHealth temp = other.GetComponent<GenericHealth>();
+                if (temp)
+                {
+                    temp.Damage(damage);
+                }
+            }
+        }
+    }
 }

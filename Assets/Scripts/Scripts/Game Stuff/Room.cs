@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Cinemachine;
 
 public class Room : PlaceName
 {
@@ -15,6 +14,7 @@ public class Room : PlaceName
 
     public virtual void Start()
     {
+        target = GameObject.FindWithTag("Player");
         camTrigger = false;
         if (boundary.bounds.Contains(target.transform.position))
         {
@@ -34,9 +34,15 @@ public class Room : PlaceName
     {
         if (boundary.bounds.Contains(target.transform.position) && !camTrigger)
         {
-            virtualCamera.SetActive(true);
+            if (!virtualCamera.activeInHierarchy)
+            {
+                virtualCamera.SetActive(true);
+                CinemachineVirtualCamera vcam = virtualCamera.GetComponent<CinemachineVirtualCamera>();
+                vcam.Follow = GameObject.FindWithTag("Player").transform;
+            }
         }
         else
+            if (virtualCamera.activeInHierarchy)
             virtualCamera.SetActive(false);
     }
 

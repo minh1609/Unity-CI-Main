@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7221218697893151954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7221218697893151952}
+  - component: {fileID: 7221218697893151953}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7221218697893151952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221218697893151954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.449902, y: -3.5427897, z: 0.3842053}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7221218697893151953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7221218697893151954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e1af3b0d55dcf74185f9712421a0188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentScene: {fileID: 11400000, guid: 47dada44a29a0224e975145871d91fae, type: 2}
+  sounds:
+  - name: Normal Sword Swing
+    clip: {fileID: 8300000, guid: 3f641741413ed4d49a9aeacc9c8181a0, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Add Letter
+    clip: {fileID: 8300000, guid: 77e8a96e98c34f147b7cee9766a8ac31, type: 3}
+    volume: 0.1
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Auburn Theme
+    clip: {fileID: 8300000, guid: e8e303e13addacb4b879998d0470f38e, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Home Theme
+    clip: {fileID: 8300000, guid: 4410403e6b6ff654b8dbcf011a1e64a1, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Dungeon Theme
+    clip: {fileID: 8300000, guid: 4450ba4c47608d6458ce69d3916a504f, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Rosewood_Forest Theme
+    clip: {fileID: 8300000, guid: cb78f436848284149ac4c87901ec7c9c, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: breakingvase1
+    clip: {fileID: 8300000, guid: 96685828f2536d740aacf37c2815c466, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: breakingvase2
+    clip: {fileID: 8300000, guid: 1d9923697d118604f931706b88e10c14, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: damage1
+    clip: {fileID: 8300000, guid: 3ae240f8fb55a034f8e7b11b87ff6c94, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: damage2
+    clip: {fileID: 8300000, guid: 002b5a8f7a2bcf449a8b12c4b87731b1, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: damage3
+    clip: {fileID: 8300000, guid: 95f4017372deb0d4b8c1813c552eaf19, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: strong-hit
+    clip: {fileID: 8300000, guid: 75480d46eb72e1d4bb625c7ef37dc48e, type: 3}
+    volume: 0.08
+    pitch: 1.5
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Rock-smash
+    clip: {fileID: 8300000, guid: 8855d2de974105742a9ba2b4ffad9a79, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: dagger
+    clip: {fileID: 8300000, guid: 280a5de8bb542bd44a4859cc03042862, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: woosh
+    clip: {fileID: 8300000, guid: dea1f2b9c5debee48a8422fbb7be5ee0, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: ButtonPress
+    clip: {fileID: 8300000, guid: 5bfa90d42866c2443b24cc7b8925a3ec, type: 3}
+    volume: 1
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: tinkle
+    clip: {fileID: 8300000, guid: efd4fb3590be2ca4b8dde2c6b58f4e0f, type: 3}
+    volume: 1
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: water
+    clip: {fileID: 8300000, guid: 6a65a293bee8ce94caa9d7c8c14089d8, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: ding
+    clip: {fileID: 8300000, guid: e2ce6cd3bf9b00645975f8424b31bc3b, type: 3}
+    volume: 1
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: potion
+    clip: {fileID: 8300000, guid: 67279463db7c5f54e870ddf9a0b3acc7, type: 3}
+    volume: 0.2
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: combined
+    clip: {fileID: 8300000, guid: 1175ca075f696fb43b8adb6149f308cc, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: chest-opening
+    clip: {fileID: 8300000, guid: 1904eceff2b20914d99dad24b60ea341, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: Game Over Theme
+    clip: {fileID: 8300000, guid: 8b6518904cd41904eb5f4ef30ddc8676, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: StartMenu Theme
+    clip: {fileID: 8300000, guid: 0893373f3a4dfde4db1d1910978362c7, type: 3}
+    volume: 0.04
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: smoke-bomb
+    clip: {fileID: 8300000, guid: e8fce97a67ddf5b489398a50fc764c02, type: 3}
+    volume: 0.15
+    pitch: 1
+    playOnAwake: 0
+    source: {fileID: 0}

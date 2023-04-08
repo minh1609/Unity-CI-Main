@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40841141257a6b146a41e952cf046e80, type: 3}
+  m_Name: Willow Branch
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 21300000, guid: 8988c2b75888c4f41bc0cb11f2b268f0, type: 3}
+  itemDescription: The branch of a Willow Tree. It feels very flexible, yet durable.
+    <br>Perhaps this could be of use...
+  isKey: 0
+  isCoin: 0
+  itemName: Willow Branch
+  numberHeld: 0
+  usable: 0
+  combineable: 1
+  unique: 0
+  thisEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  combineList:
+  - {fileID: 11400000, guid: a3e2dd8274057044b8cb6c64b930292d, type: 2}
+  combineProduct:
+  - {fileID: 11400000, guid: ba35c207a694e4340872d3aa02cc81ab, type: 2}

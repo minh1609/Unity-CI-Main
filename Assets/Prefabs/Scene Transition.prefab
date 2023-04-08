@@ -29,6 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,10 +71,12 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -122,18 +125,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: 
-  playerPosition: {x: 0, y: 0}
-  playerStorage: {fileID: 11400000, guid: c958670978d96aa438b12f160939fd7c, type: 2}
+  lastScene: {fileID: 11400000, guid: d5c4e3b9169a76e49ac3dc63ce88bd64, type: 2}
+  currentScene: {fileID: 11400000, guid: 47dada44a29a0224e975145871d91fae, type: 2}
   cameraReset: {fileID: 0}
   cameraMin: {x: 0, y: 0}
   cameraMax: {x: 0, y: 0}
   changeCamera: 0
-  startX: 0
-  startY: 0
-  startDirection: {fileID: 11400000, guid: 18c3d5155cae4ca4680d48b6eb489fd1, type: 2}
-  fadeInPanel: {fileID: 1131466108561162581, guid: f794b24ac5f684a4890656c12f145fde,
-    type: 3}
-  fadeOutPanel: {fileID: 4021264286762640152, guid: 2d5346fee37453749a0845fa0b47295d,
-    type: 3}
+  fadeInPanel: {fileID: 1131466108561162581, guid: f794b24ac5f684a4890656c12f145fde, type: 3}
+  fadeOutPanel: {fileID: 4021264286762640152, guid: 2d5346fee37453749a0845fa0b47295d, type: 3}
   fadeWait: 0.33
-  lastScene: {fileID: 11400000, guid: 67440f3796ba3954692ccba731551a7d, type: 2}

@@ -23,6 +23,7 @@ public class HeartReplenish : PowerUp
     {
         if(other.CompareTag("Player") && !other.isTrigger)
         {
+            FindObjectOfType<AudioManager>().Play("tinkle");
             playerHealth.RuntimeValue += amountToIncrease;
             if (playerHealth.RuntimeValue > playerHealth.initialValue)
                 playerHealth.RuntimeValue = playerHealth.initialValue;

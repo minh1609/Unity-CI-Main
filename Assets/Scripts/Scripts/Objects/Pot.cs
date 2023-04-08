@@ -29,6 +29,7 @@ public class Pot : MonoBehaviour
         {
             isSmashed = true;
             MakeLoot();
+            FindObjectOfType<AudioManager>().Play("breakingvase" + Random.Range(1, 3));
         }
         StartCoroutine(breakCo());
     }

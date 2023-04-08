@@ -175,10 +175,12 @@ MonoBehaviour:
   playerInRange: 0
   triggered: 0
   contextClue: {fileID: 11400000, guid: d1b2af643f223e043bb5a22cd5874132, type: 2}
+  coinSignal_Prefab: {fileID: 429721207197522724, guid: 167b2ceab09c4b843aa309ac001dac19, type: 3}
   storedOpen: {fileID: 0}
   contents: {fileID: 0}
   amount: 1
   playerInventory: {fileID: 11400000, guid: 399fd68b10eb1ea4c8dded36df1cf99a, type: 2}
+  description: 
   raiseItem: {fileID: 11400000, guid: 5d20c2b9e13e9c345b0544782676d11b, type: 2}
   dialogueBox: {fileID: 0}
   dialogueText: {fileID: 0}

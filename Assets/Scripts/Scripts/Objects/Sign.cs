@@ -1,31 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class Sign : Interactable
 {
-    public GameObject dialogueBox;
-    public Text dialogueText;
-    public string dialogue;
+    [SerializeField] public DialogueTrigger[] dialogueSets;
+    [HideInInspector] public GameObject dialogueBox;
+    [SerializeField] public ChoiceManager choiceManager;
+
+    public virtual void Start()
+    {
+        dialogueBox = GameObject.FindGameObjectWithTag("Player UI").transform.Find("Dialogue Box").gameObject;
+    }
 
     // Update is called once per frame
     public virtual void Update()
     {
-        if(Input.GetKeyDown(KeyCode.E) && playerInRange)
+        if (Input.GetKeyDown(KeyCode.E) && playerInRange)
         {
-            if(dialogueBox.activeInHierarchy)
+            if (dialogueSets.Length > 0 && dialogueSets != null)
             {
-                dialogueBox.SetActive(false);
+                dialogueSets[0].toggleDialogue();
             }
-            else
+        }
+        else if (!playerInRange)
+        {
+            foreach (DialogueTrigger dialogue in dialogueSets)
             {
-                dialogueBox.SetActive(true);
-                dialogueText.text = dialogue;
+                dialogue.index = 0;
             }
         }
     }
+
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -34,6 +38,26 @@ public class Sign : Interactable
             contextClue.Raise();
             playerInRange = false;
             dialogueBox.SetActive(false);
+        }
+    }
+
+    public void resetAllDialogIndexes()
+    {
+        foreach (DialogueTrigger dialogue in dialogueSets)
+        {
+            dialogue.index = 0;
+            dialogue.endOfDialogue = false;
+        }
+    }
+
+    public void stopOtherDialogues()
+    {
+        for (int i = 0; i < dialogueSets.Length; i++)
+        {
+            if (i != choiceManager.selectedChoice)
+            {
+                dialogueSets[i].stopDialogueCoroutines();
+            }
         }
     }
 

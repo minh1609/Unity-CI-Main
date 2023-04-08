@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class SceneStartPosition : MonoBehaviour
 {
@@ -16,13 +13,19 @@ public class SceneStartPosition : MonoBehaviour
     public Vector2 dungeon;
     public Vector2 rosewoodAuburn;
     public StringValue lastScene;
+    public StringValue currentScene;
 
     [Header("Player's starting direction to face")]
     public StartDirection startDirection;
 
+    public void Start()
+    {
+        currentScene.element = this.gameObject.scene.name;
+    }
+
     public void movePlayer()
     {
-        switch (this.gameObject.scene.name)
+        switch (currentScene.element)
         {
             case "Auburn":
 
@@ -32,7 +35,6 @@ public class SceneStartPosition : MonoBehaviour
                     playerStorage.initialValue = auburnDungeon;
                     startDirection.startX = 0;
                     startDirection.startY = -1;
-                    lastScene.element = "Auburn";
                 }
                 else if (lastScene.element == "Home")
                 {
@@ -40,15 +42,20 @@ public class SceneStartPosition : MonoBehaviour
                     playerStorage.initialValue = auburnHouse;
                     startDirection.startX = 0;
                     startDirection.startY = -1;
-                    lastScene.element = "Auburn";
                 }
-                else if (lastScene.element == "Rosewood Forest")
+                else if (lastScene.element == "Rosewood_Forest")
                 {
                     playerStorage.defaultValue = auburnRosewood;
                     playerStorage.initialValue = auburnRosewood;
                     startDirection.startX = -1;
                     startDirection.startY = 0;
-                    lastScene.element = "Auburn";
+                }
+                if (lastScene.element == "Auburn")
+                {
+                    playerStorage.defaultValue = auburnHouse;
+                    playerStorage.initialValue = auburnHouse;
+                    startDirection.startX = 0;
+                    startDirection.startY = -1;
                 }
 
 
@@ -59,7 +66,6 @@ public class SceneStartPosition : MonoBehaviour
                 playerStorage.initialValue = houseInterior;
                 startDirection.startX = 0;
                 startDirection.startY = 1;
-                lastScene.element = "Home";
                 break;
 
             case "Dungeon":
@@ -67,23 +73,24 @@ public class SceneStartPosition : MonoBehaviour
                 playerStorage.initialValue = dungeon;
                 startDirection.startX = 0;
                 startDirection.startY = 1;
-                lastScene.element = "Dungeon";
                 break;
 
-            case "Rosewood Forest":
+            case "Rosewood_Forest":
                 if (lastScene.element == "Auburn")
                 {
                     playerStorage.defaultValue = rosewoodAuburn;
                     playerStorage.initialValue = rosewoodAuburn;
                     startDirection.startX = 1;
                     startDirection.startY = 0;
-                    lastScene.element = "Rosewood Forest";
+                }
+                if (lastScene.element == "Rosewood_Forest")
+                {
+                    playerStorage.defaultValue = rosewoodAuburn;
+                    playerStorage.initialValue = rosewoodAuburn;
+                    startDirection.startX = 1;
+                    startDirection.startY = 0;
                 }
 
-                break;
-
-            case "StartMenu":
-                lastScene.element = "Auburn";
                 break;
 
             default:

@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   itemSprite: {fileID: 21300000, guid: cc8466f4edfdc4a4e84de0f158752932, type: 3}
-  itemDescription: A bow that only fires magical arrows <br><br>(L Shift)
+  itemDescription: 'A bow created from the wood of a willow tree and silk bow string.
+    Shooting from this causes a lot of stamina.
+
+
+    L Shift'
   isKey: 0
-  playerInventory: {fileID: 11400000, guid: 399fd68b10eb1ea4c8dded36df1cf99a, type: 2}
+  isCoin: 0
   itemName: Bow
-  numberHeld: 0
+  numberHeld: 1
   usable: 0
   combineable: 0
-  unique: 0
+  unique: 1
   thisEvent:
     m_PersistentCalls:
       m_Calls: []

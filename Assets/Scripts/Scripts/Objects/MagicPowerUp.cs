@@ -17,6 +17,7 @@ public class MagicPowerUp : PowerUp
     {
         if (other.CompareTag("Player") && !other.isTrigger)
         {
+            FindObjectOfType<AudioManager>().Play("potion");
             playerInventory.currentMagic += magicValue;
             if (playerInventory.currentMagic > playerInventory.maxMagic)
                 playerInventory.currentMagic = playerInventory.maxMagic;

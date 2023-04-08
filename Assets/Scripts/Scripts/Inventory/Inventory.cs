@@ -63,4 +63,22 @@ public class Inventory : ScriptableObject
         }
         return null;
     }
+
+    public void RemoveItem(Item itemToRemove, int amount)
+    {
+        if (items.Contains(itemToRemove))
+        {
+            itemToRemove.numberHeld -= amount;
+            if (itemToRemove.numberHeld <= 0)
+            {
+                itemToRemove.numberHeld = 0;
+                items.Remove(itemToRemove);
+            }
+        }
+    }
+
+    public void spendCoin(int amount)
+    {
+        coins -= amount;
+    }
 }
