@@ -81,7 +81,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 82574217
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -4753886741560322309, guid: baf63258d8d1b3846959a5555dcb38d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxHealth: {fileID: 11400000, guid: 360120383511423448e4f2d788615655, type: 2}
+  maxHealth: {fileID: 11400000, guid: 05a77793508e54241872dadb62a85593, type: 2}
   enemyName: Helga
   moveSpeed: 1
   homePosition: {x: 0, y: 0}

@@ -11,9 +11,11 @@ public class Room : PlaceName
     public GameObject virtualCamera;
     public GameObject target;
     public Collider2D boundary;
+    public bool camTrigger;
 
     public virtual void Start()
     {
+        camTrigger = false;
         if (boundary.bounds.Contains(target.transform.position))
         {
             virtualCamera.SetActive(true);
@@ -30,7 +32,7 @@ public class Room : PlaceName
 
     private void Update()
     {
-        if (boundary.bounds.Contains(target.transform.position))
+        if (boundary.bounds.Contains(target.transform.position) && !camTrigger)
         {
             virtualCamera.SetActive(true);
         }

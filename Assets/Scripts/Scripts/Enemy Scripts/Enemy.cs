@@ -42,14 +42,16 @@ public class Enemy : MonoBehaviour
     private void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        if (health <= 0)
         {
             DeathEffect();
             MakeLoot();
-            if(roomSignal != null)
+            if (roomSignal != null)
                 roomSignal.Raise();
             this.gameObject.SetActive(false);
         }
+        else
+            StaggerColor();
     }
 
     private void MakeLoot()
@@ -93,5 +95,20 @@ public class Enemy : MonoBehaviour
     {
         if (currentState != newState)
             currentState = newState;
+    }
+
+    private void StaggerColor()
+    {
+        StartCoroutine(StaggerColorCo());
+    }
+
+    private IEnumerator StaggerColorCo()
+    {
+        GetComponent<SpriteRenderer>().material.color = new Vector4(1, 0.5f, 0.5f, 1);
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().material.color = new Vector4(0, 0, 0, 0.5f);
+        yield return new WaitForSeconds(0.15f);
+        GetComponent<SpriteRenderer>().material.color = new Vector4(1, 1, 1, 1);
+        yield return null;
     }
 }

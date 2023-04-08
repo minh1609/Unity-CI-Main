@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -12,10 +11,6 @@ public class Inventory : ScriptableObject
     public float maxMagic;
     public float currentMagic;
 
-    private void OnEnable()
-    {
-        currentMagic = 4;
-    }
 
     public void ReduceMagic(float magicCost)
     {
@@ -32,18 +27,40 @@ public class Inventory : ScriptableObject
             return false;
     }
 
-    public void AddItem(Item itemToAdd)
+    public void AddItem(Item itemToAdd, int amount)
     {
-        if(itemToAdd.isKey)
+        if (itemToAdd.isKey)
         {
-            numberOfKeys++;
-        }
-        else
-        {
-            if(!items.Contains(itemToAdd))
+            numberOfKeys+=amount;
+            if (!items.Contains(itemToAdd))
             {
+                itemToAdd.numberHeld += amount;
                 items.Add(itemToAdd);
             }
         }
+        if (itemToAdd.isCoin)
+            coins += amount;
+        else
+        {
+            if (!items.Contains(itemToAdd))
+            {
+                itemToAdd.numberHeld += amount;
+                items.Add(itemToAdd);
+            }
+            else
+                items[items.FindIndex(a => a.itemName == itemToAdd.itemName)].numberHeld += amount;
+        }
+    }
+
+    public Item GetItem(string itemName)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemName == itemName)
+            {
+                return items[i];
+            }
+        }
+        return null;
     }
 }

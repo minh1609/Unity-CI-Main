@@ -71,9 +71,24 @@ public class MeleeEnemy : Enemy
             myRigidbody.velocity = Vector2.zero;
             currentState = EnemyState.attack;
             animator.SetBool("attacking", true);
-            yield return new WaitForSeconds(0.5f);
-            currentState = EnemyState.idle;
+            yield return null;
             animator.SetBool("attacking", false);
+            yield return new WaitForSeconds(1f);
+            if (currentState != EnemyState.stagger)
+                currentState = EnemyState.idle;
         }
+    }
+
+    public void ParriedOn(float duration)
+    {
+        StartCoroutine(ParriedOnCo(duration));
+    }
+    public IEnumerator ParriedOnCo(float duration)
+    {
+        ChangeState(EnemyState.stagger);
+        animator.SetBool("stagger", true);
+        yield return new WaitForSeconds(duration);
+        animator.SetBool("stagger", false);
+        ChangeState(EnemyState.idle);
     }
 }

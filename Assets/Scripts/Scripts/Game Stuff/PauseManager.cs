@@ -23,6 +23,8 @@ public class PauseManager : MonoBehaviour
         {
             ChangePause();
         }
+        if (Input.GetKeyDown(KeyCode.I))
+            pausePanel.SetActive(false);
     }
 
     public void ChangePause()

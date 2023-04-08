@@ -14,6 +14,7 @@ public class MagicManager : MonoBehaviour
     {
         magicSlider.maxValue = playerInventory.maxMagic;
         magicSlider.value = playerInventory.currentMagic;
+        magicSlider.interactable = false;
     }
 
     public void AddMagic()

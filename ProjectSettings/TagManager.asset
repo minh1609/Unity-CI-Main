@@ -8,6 +8,8 @@ TagManager:
   - breakable
   - Player_hit
   - ground
+  - enemy projectile
+  - eprojectile
   layers:
   - Default
   - TransparentFX
@@ -22,11 +24,11 @@ TagManager:
   - Decoration - Overlap player
   - breakable
   - Player Projectile
-  - 
-  - 
-  - 
-  - 
-  - 
+  - unlit clone
+  - Player_Hit
+  - enemy projectile
+  - eprojectile
+  - Collisions
   - 
   - 
   - 
@@ -44,6 +46,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: unlit clone
+    uniqueID: 4262668491
     locked: 0
   - name: Ground
     uniqueID: 1318746903

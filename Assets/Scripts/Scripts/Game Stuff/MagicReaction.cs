@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class MagicReaction : MonoBehaviour
 {
-    public FloatValue playerMagic;
+    public Inventory playerInventory;
     public Signal magicSignal;
-    public InventoryItem greenPotion;
+    public Item greenPotion;
+    public GameObject magicMeter;
 
     public void Use(int amountToIncrease)
     {
         if (greenPotion.numberHeld > 0)
         {
-            playerMagic.RuntimeValue += amountToIncrease;
-            greenPotion.numberHeld--;
-            if (playerMagic.RuntimeValue > playerMagic.initialValue)
-                playerMagic.RuntimeValue = playerMagic.initialValue;
+            playerInventory.currentMagic += amountToIncrease;
+            if (playerInventory.currentMagic > playerInventory.maxMagic)
+                playerInventory.currentMagic = playerInventory.maxMagic;
             magicSignal.Raise();
+
+            if (magicMeter != null)
+            {
+                MagicManager meter = magicMeter.transform.GetComponentInChildren<MagicManager>();
+                meter.AddMagic();
+            }
         }
     }
 }

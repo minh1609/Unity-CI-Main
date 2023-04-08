@@ -1,29 +1,78 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory Information")]
-    public PlayerInventory playerInventory;
+    public Inventory playerInventory;
     [SerializeField] private GameObject blankInventorySlot;
     [SerializeField] private GameObject inventoryScrollView;
     [SerializeField] private TextMeshProUGUI descriptionText;
-    [SerializeField] private GameObject useButton;
-    public InventoryItem currentItem;
+    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private Button useButton;
+    [SerializeField] public Button combineButton;
+    [SerializeField] public Sprite combineDefault;
+    [SerializeField] private Sprite combineToggle;
+    [SerializeField] private Button pageUpBtn;
+    [SerializeField] private Button pageDownBtn;
+    [SerializeField] private Button exit;
+    public Item currentItem;
+    public Item tempItem;
+    public GameObject inventoryPanel;
+    private int maxItemsDisplayed = 8;
+    private int page = 1;
 
-    public void SetTextAndButton(string description, bool buttonActive)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            toggleInventory();
+            clearCombine();
+            clearText();
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            inventoryPanel.SetActive(false);
+            clearCombine();
+            clearText();
+        }
+        pageUpBtn.interactable = page*maxItemsDisplayed < playerInventory.items.Count ? true : false;
+
+        pageDownBtn.interactable = page > 1 ? true : false;
+    }
+
+    public void toggleInventory()
+    {
+        clearCombine();
+        clearText();
+        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+        foreach (Transform children in inventoryScrollView.transform)
+            GameObject.Destroy(children.gameObject);
+        MakeInventorySlot();
+        exit.Select();
+    }
+
+    public void SetTextAndButton(string description, bool useBtn, bool combineBtn)
     {
         descriptionText.text = description;
-        if (buttonActive)
+        if (useBtn)
         {
-            useButton.SetActive(true);
+            useButton.interactable = true;
         }
         else
         {
-            useButton.SetActive(false);
+            useButton.interactable = false;
+        }
+
+        if (combineBtn)
+        {
+            combineButton.interactable = true;
+        }
+        else
+        {
+            combineButton.interactable = false;
         }
     }
 
@@ -31,32 +80,110 @@ public class InventoryManager : MonoBehaviour
     {
         if (playerInventory != null)
         {
-            for (int i = 0; i < playerInventory.myInventory.Count; i++)
+
+            for (int i = maxItemsDisplayed * page - maxItemsDisplayed; i < playerInventory.items.Count && i < page* maxItemsDisplayed; i++)
             {
+                if (playerInventory.items[i].numberHeld > 0 && playerInventory.items[i] != null)
+                {
+                    GameObject temp = Instantiate(blankInventorySlot, inventoryScrollView.transform.position, Quaternion.identity);
+                    temp.transform.SetParent(inventoryScrollView.transform);
+                    temp.transform.localScale = new Vector3(1, 1, 1);
+                    InventorySlot newSlot = temp.GetComponent<InventorySlot>();
+                    if (newSlot != null)
+                    {
+                        newSlot.Setup(playerInventory.items[i], this);
+                    }
+                }
+            }
+        }
+    }
+
+    public void MakeCombinedItem(Item combinedItem)
+    {
+        if (playerInventory != null)
+        {
                 GameObject temp = Instantiate(blankInventorySlot, inventoryScrollView.transform.position, Quaternion.identity);
                 temp.transform.SetParent(inventoryScrollView.transform);
                 temp.transform.localScale = new Vector3(1, 1, 1);
                 InventorySlot newSlot = temp.GetComponent<InventorySlot>();
                 if (newSlot != null)
                 {
-                    newSlot.Setup(playerInventory.myInventory[i], this);
+                    newSlot.Setup(combinedItem, this);
+                    Selectable btn = temp.GetComponent<Selectable>();
+                    EventSystem.current.SetSelectedGameObject(btn.gameObject);
                 }
+         }
+    }
+
+    public GameObject searchForItem(Item item)
+    {
+        foreach (Transform children in inventoryScrollView.transform)
+        {
+            if (children.GetComponent<InventorySlot>().thisItem == item)
+            {
+                Selectable btn = children.GetComponent<Selectable>();
+                EventSystem.current.SetSelectedGameObject(btn.gameObject);
+                return children.gameObject;
             }
         }
+        return null;
     }
+
+    public void setSlots()
+    {
+        foreach (Transform children in inventoryScrollView.transform)
+            GameObject.Destroy(children.gameObject);
+        MakeInventorySlot();
+    }
+
+    public void pageUp()
+    {
+        if (page + maxItemsDisplayed <= playerInventory.items.Count)
+            page++;
+        foreach (Transform children in inventoryScrollView.transform)
+            GameObject.Destroy(children.gameObject);
+            MakeInventorySlot();
+        if (page * maxItemsDisplayed < playerInventory.items.Count)
+            pageUpBtn.Select();
+        else
+            pageDownBtn.Select();
+    }
+
+    public void pageDown()
+    {
+        if (page > 1)
+            page--;
+        foreach (Transform children in inventoryScrollView.transform)
+            GameObject.Destroy(children.gameObject);
+        MakeInventorySlot();
+
+        if (page > 1)
+            pageDownBtn.Select();
+        else
+            pageUpBtn.Select();
+    }   
 
     // Start is called before the first frame update
     void Start()
     {
-        MakeInventorySlot();
-        SetTextAndButton("", false);
+        inventoryPanel.SetActive(false);
+        SetTextAndButton("", false, false);
     }
 
-    public void SetupDescriptionAndButton(string newDescriptionString, string itemName, bool isButtonUsable, InventoryItem newtItem)
+    public void SetupDescriptionAndButton(string newDescriptionString, string itemName, bool useBtn, bool combineBtn, Item newtItem)
     {
         currentItem = newtItem;
-        descriptionText.text = itemName + Environment.NewLine + newDescriptionString;
-        useButton.SetActive(isButtonUsable);
+        descriptionText.text = newDescriptionString;
+        this.itemName.text = itemName;
+        if (useBtn)
+            useButton.interactable = true;
+        else
+            useButton.interactable = false;
+
+        if (combineBtn)
+            combineButton.interactable = true;
+        else
+            combineButton.interactable = false;
     }
 
     public void UseButtonPressed()
@@ -64,6 +191,34 @@ public class InventoryManager : MonoBehaviour
         if (currentItem != null)
         {
             currentItem.Use();
+            setSlots();
         }
+        clearCombine();
+    }
+
+    public void CombineButtonPressed()
+    {
+        if (tempItem == null)
+        {
+            combineButton.image.sprite = combineToggle;
+            tempItem = currentItem;
+        }
+
+        else
+            clearCombine();
+    }
+
+    private void clearCombine()
+    {
+        combineButton.image.sprite = combineDefault;
+        tempItem = null;
+    }
+
+    private void clearText()
+    {
+        descriptionText.text = "";
+        itemName.text = "";
+        useButton.interactable = false;
+        combineButton.interactable = false;
     }
 }

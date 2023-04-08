@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   physicsCollider: {fileID: 1180421520267485339}
-  thisLoot: {fileID: 0}
+  thisLoot: {fileID: 11400000, guid: 19a681bb823edc74bbddd0166e82c769, type: 2}

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    walk, attack, interact, stagger, idle
+    walk, attack, interact, stagger, idle, parry
 }
 
 public class PlayerController : MonoBehaviour
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [Header("Health Properties")]
     public FloatValue currentHealth;
     public Signal playerHealthSignal;
+    private float invul_time = 0;
+    public bool invulnerable;
 
     [Header("Starting Location / Face Direction")]
     public VectorValue startingPosition;
@@ -37,6 +39,15 @@ public class PlayerController : MonoBehaviour
     public Signal reduceMagic;
     public GameObject projectile;
     public Item bow;
+    public Item sword;
+
+    [Header("UI")]
+    public BoolValue UIActive;
+
+    [Header("Dagger")]
+    public float daggerCD = 0;
+    public float daggerDelay = 2f;
+    public Item dagger;
 
     // Start is called before the first frame update
     void Awake()
@@ -53,31 +64,41 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (invul_time >= Time.time)
+        {
+            StaggerColor();
+        }
+        else
+            invulnerable = false;
+
         animator.SetBool("moving", false);
+        if (UIActive.RunTimeValue)
+            return;
         if (currentState == PlayerState.interact)
         {
             return;
         }
-        if (myRigidbody.velocity == Vector2.zero && currentState != PlayerState.attack)
+        if (myRigidbody.velocity == Vector2.zero && currentState != PlayerState.attack && currentState != PlayerState.parry)
             currentState = PlayerState.idle;
-        if (Input.GetButtonDown("attack") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
+        if ((Input.GetButton("attack")) && currentState != PlayerState.attack && currentState != PlayerState.stagger)
         {
-            StartCoroutine(AttackCo());
+            if (playerInventory.CheckForItem(sword))
+                StartCoroutine(AttackCo());
         }
-        else if (Input.GetButtonDown("Second Weapon"))
+        else if (Input.GetButtonDown("Second Weapon") && currentState != PlayerState.attack && currentState != PlayerState.stagger)
         {
             if (playerInventory.CheckForItem(bow))
             {
                 StartCoroutine(SecondAttackCo());
             }
         }
+        else if (Input.GetKeyDown(KeyCode.V) && currentState != PlayerState.attack && currentState != PlayerState.stagger && daggerUsable())
+        {
+            StartCoroutine(DaggerParryCo());
+        }
         if (currentState == PlayerState.walk || currentState == PlayerState.idle)
         {
             UpdateAndMove();
-        }
-        if (currentState == PlayerState.stagger)
-        {
-            StaggerColor();
         }
     }
 
@@ -86,8 +107,8 @@ public class PlayerController : MonoBehaviour
         playerVelocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         playerVelocity.Normalize();
         myRigidbody.velocity = playerVelocity * speed;
-        animator.SetFloat("moveX", myRigidbody.velocity.x);
-        animator.SetFloat("moveY", myRigidbody.velocity.y);
+        animator.SetFloat("moveX", Input.GetAxisRaw("Horizontal"));
+        animator.SetFloat("moveY", Input.GetAxisRaw("Vertical"));
         if (myRigidbody.velocity != Vector2.zero)
         {
             animator.SetBool("moving", true);
@@ -102,15 +123,13 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AttackCo()
     {
-        if (myRigidbody.velocity.x != 0 && myRigidbody.velocity.y != 0)
-            animator.SetFloat("lastMoveY", 0);
         myRigidbody.velocity = Vector2.zero;
         animator.SetBool("attacking", true);
         currentState = PlayerState.attack;
         yield return null;
         animator.SetBool("attacking", false);
         yield return new WaitForSeconds(2f/3f);
-        if (currentState != PlayerState.interact)
+        if (currentState != PlayerState.interact && currentState != PlayerState.stagger)
         {
             currentState = PlayerState.idle;
         }
@@ -127,7 +146,7 @@ public class PlayerController : MonoBehaviour
         MakeArrow();
         myRigidbody.velocity = Vector2.zero;
         yield return new WaitForSeconds(0.33f);
-        if (currentState != PlayerState.interact)
+        if (currentState != PlayerState.interact && currentState != PlayerState.stagger)
         {
             currentState = PlayerState.idle;
         }
@@ -146,6 +165,23 @@ public class PlayerController : MonoBehaviour
                 arrow.Setup(temp2, ChooseArrowDirection());
             playerInventory.ReduceMagic(arrow.magicCost);
             reduceMagic.Raise();
+        }
+    }
+
+    private IEnumerator DaggerParryCo()
+    {
+        myRigidbody.velocity = Vector2.zero;
+        daggerUsed();
+        currentState = PlayerState.parry;
+        animator.SetBool("Dagger", true);
+        invulnerable = true;
+        invul_time = Time.time + 0.3f;
+        yield return null;
+        animator.SetBool("Dagger", false);
+        yield return new WaitForSeconds(2f / 3f);
+        if (currentState != PlayerState.interact && currentState != PlayerState.stagger)
+        {
+            currentState = PlayerState.idle;
         }
     }
 
@@ -180,16 +216,22 @@ public class PlayerController : MonoBehaviour
 
     public void Knock(float knockTime, float damage)
     {
-        currentHealth.RuntimeValue -= damage;
-        animator.SetBool("staggered", true);
-        playerHealthSignal.Raise();
-        if (currentHealth.RuntimeValue > 0)
+        if (!invulnerable)
         {
-            StartCoroutine(KnockCo(knockTime));
-        }
-        else 
-        {
-            this.gameObject.SetActive(false);
+            currentHealth.RuntimeValue -= damage;
+            animator.SetBool("staggered", true);
+            playerHealthSignal.Raise();
+            invulnerable = true;
+            invul_time = Time.time + 2f;
+
+            if (currentHealth.RuntimeValue > 0)
+            {
+                StartCoroutine(KnockCo(knockTime));
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -212,11 +254,26 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator StaggerColorCo()
     {
-        GetComponent<Renderer>().material.color = new Vector4(1, 0.5f, 0.5f, 1);
+        GetComponent<SpriteRenderer>().material.color = new Vector4(1, 1, 1, 1);
         yield return new WaitForSeconds(0.15f);
-        GetComponent<Renderer>().material.color = new Vector4(0, 0, 0, 0);
+        GetComponent<SpriteRenderer>().material.color = new Vector4(0, 0, 0, 0);
         yield return new WaitForSeconds(0.15f);
-        GetComponent<Renderer>().material.color = new Vector4(1, 1, 1, 1);
+        GetComponent<SpriteRenderer>().material.color = new Vector4(1, 1, 1, 1);
         yield return null;
+    }
+
+    public void daggerUsed()
+    {
+        daggerCD = Time.time + daggerDelay;
+    }
+
+    public bool daggerUsable()
+    {
+        if (daggerCD <= Time.time && playerInventory.CheckForItem(dagger))
+        {
+            return true;
+        }
+        else
+            return false;
     }
 }

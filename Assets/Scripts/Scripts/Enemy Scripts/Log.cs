@@ -42,6 +42,7 @@ public class Log : Enemy
         }
         else if (Vector3.Distance(target.position, transform.position) > chaseRadius)
         {
+            myRigidbody.velocity = Vector2.zero;
             animator.SetBool("wakeUp", false);
             ChangeState(EnemyState.idle);
         }

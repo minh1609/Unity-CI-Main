@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -262493763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 1336440320741484319, guid: 2776bdf237d91e9448ce9359e441bb45, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,6 +177,7 @@ MonoBehaviour:
   contextClue: {fileID: 11400000, guid: d1b2af643f223e043bb5a22cd5874132, type: 2}
   storedOpen: {fileID: 0}
   contents: {fileID: 0}
+  amount: 1
   playerInventory: {fileID: 11400000, guid: 399fd68b10eb1ea4c8dded36df1cf99a, type: 2}
   raiseItem: {fileID: 11400000, guid: 5d20c2b9e13e9c345b0544782676d11b, type: 2}
   dialogueBox: {fileID: 0}

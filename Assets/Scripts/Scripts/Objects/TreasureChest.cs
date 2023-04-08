@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TreasureChest : InteractableOnce
 {
+    public GameObject coinSignal_Prefab;
+
     [Header("Contents")]
     public BoolValue storedOpen;
     public Item contents;
+    public int amount;
     public Inventory playerInventory;
+    public string description;
 
     [Header("Signals and Dialogue")]
     public Signal raiseItem;
@@ -44,9 +49,17 @@ public class TreasureChest : InteractableOnce
     public void OpenChest()
     {
         dialogueBox.SetActive(true);
-        dialogueText.text = contents.itemDescription;
-        playerInventory.AddItem(contents);
+        dialogueText.text = description;
         playerInventory.currentItem = contents;
+        if (!contents.isCoin)
+        {
+            playerInventory.AddItem(contents, amount);
+        }
+        else
+        {
+            playerInventory.AddItem(contents, amount);
+            GameObject temp = GameObject.Instantiate(coinSignal_Prefab, this.transform.position, Quaternion.identity);
+        }
         raiseItem.Raise();
         animator.SetBool("Opened", true);
         triggerItem();

@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -262493763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -3555468057966329373, guid: 2776bdf237d91e9448ce9359e441bb45, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -122,6 +122,7 @@ MonoBehaviour:
   powerUpSignal: {fileID: 11400000, guid: ef225e6181e6e51468267a5e93c2fb9e, type: 2}
   heartContainers: {fileID: 11400000, guid: f497254262c4cdb4698858114e66bd23, type: 2}
   playerHealth: {fileID: 11400000, guid: 99739d6e90122c04b993be0ff04f403b, type: 2}
+  maxHearts: 5
 --- !u!58 &-3960560328078839504
 CircleCollider2D:
   m_ObjectHideFlags: 0

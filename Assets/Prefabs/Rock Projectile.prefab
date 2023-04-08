@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 338153925553163239}
   - component: {fileID: 597114949041350453}
   - component: {fileID: 7348150049781755874}
-  m_Layer: 7
+  m_Layer: 16
   m_Name: Rock Projectile
-  m_TagString: enemy
+  m_TagString: eprojectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -262493763
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 5849325189442884660, guid: 2776bdf237d91e9448ce9359e441bb45, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

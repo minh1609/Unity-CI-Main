@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40841141257a6b146a41e952cf046e80, type: 3}
+  m_Name: Steel Sword
+  m_EditorClassIdentifier: 
+  itemSprite: {fileID: 21300000, guid: ba4b4a36055ff9a43abc2edfe44cb891, type: 3}
+  itemDescription: Whack--Whack--Whack <br><br> Press space to use
+  isKey: 0
+  isCoin: 0
+  itemName: Steel Sword
+  numberHeld: 1
+  usable: 0
+  combineable: 0
+  unique: 1
+  thisEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  combineList: []
+  combineProduct: []

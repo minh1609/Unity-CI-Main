@@ -9,10 +9,12 @@ public class SceneStartPosition : MonoBehaviour
     public VectorValue playerStorage;
 
     [Header("Default starting positions")]
-    public Vector2 sampleSceneHouse;
-    public Vector2 sampleSceneDungeon;
+    public Vector2 auburnHouse;
+    public Vector2 auburnDungeon;
+    public Vector2 auburnRosewood;
     public Vector2 houseInterior;
     public Vector2 dungeon;
+    public Vector2 rosewoodAuburn;
     public StringValue lastScene;
 
     [Header("Player's starting direction to face")]
@@ -26,18 +28,26 @@ public class SceneStartPosition : MonoBehaviour
 
                 if (lastScene.element == "Dungeon")
                 {
-                    playerStorage.defaultValue = sampleSceneDungeon;
-                    playerStorage.initialValue = sampleSceneDungeon;
+                    playerStorage.defaultValue = auburnDungeon;
+                    playerStorage.initialValue = auburnDungeon;
                     startDirection.startX = 0;
                     startDirection.startY = -1;
                     lastScene.element = "Auburn";
                 }
-                else 
+                else if (lastScene.element == "Home")
                 {
-                    playerStorage.defaultValue = sampleSceneHouse;
-                    playerStorage.initialValue = sampleSceneHouse;
+                    playerStorage.defaultValue = auburnHouse;
+                    playerStorage.initialValue = auburnHouse;
                     startDirection.startX = 0;
                     startDirection.startY = -1;
+                    lastScene.element = "Auburn";
+                }
+                else if (lastScene.element == "Rosewood Forest")
+                {
+                    playerStorage.defaultValue = auburnRosewood;
+                    playerStorage.initialValue = auburnRosewood;
+                    startDirection.startX = -1;
+                    startDirection.startY = 0;
                     lastScene.element = "Auburn";
                 }
 
@@ -58,6 +68,18 @@ public class SceneStartPosition : MonoBehaviour
                 startDirection.startX = 0;
                 startDirection.startY = 1;
                 lastScene.element = "Dungeon";
+                break;
+
+            case "Rosewood Forest":
+                if (lastScene.element == "Auburn")
+                {
+                    playerStorage.defaultValue = rosewoodAuburn;
+                    playerStorage.initialValue = rosewoodAuburn;
+                    startDirection.startX = 1;
+                    startDirection.startY = 0;
+                    lastScene.element = "Rosewood Forest";
+                }
+
                 break;
 
             case "StartMenu":

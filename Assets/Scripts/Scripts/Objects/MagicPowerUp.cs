@@ -18,6 +18,8 @@ public class MagicPowerUp : PowerUp
         if (other.CompareTag("Player") && !other.isTrigger)
         {
             playerInventory.currentMagic += magicValue;
+            if (playerInventory.currentMagic > playerInventory.maxMagic)
+                playerInventory.currentMagic = playerInventory.maxMagic;
             powerUpSignal.Raise();
             Destroy(this.gameObject);
         }
